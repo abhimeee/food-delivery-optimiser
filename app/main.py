@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
-from app.schemas import OrderRequest, RouteResponse, Delivery
+from app.schemas import OrderRequest, RouteResponse, Delivery, Driver
 from app.optimizer import optimize_route
-from .mock_data import MOCK_DELIVERIES, MOCK_DELIVERIES_BY_ID
+from .mock_data import MOCK_DELIVERIES, MOCK_DELIVERIES_BY_ID, MOCK_DRIVERS
 
 app = FastAPI()
 
@@ -26,3 +26,10 @@ async def get_delivery_details(delivery_id: str):
         raise HTTPException(status_code=404, detail="Delivery not found")
     
     return MOCK_DELIVERIES_BY_ID[delivery_id]
+
+@app.get("/drivers/{driver_id}", response_model=Driver)
+async def get_driver_profile(driver_id: str):
+    if driver_id not in MOCK_DRIVERS:
+        raise HTTPException(status_code=404, detail="Driver not found")
+    
+    return MOCK_DRIVERS[driver_id]
