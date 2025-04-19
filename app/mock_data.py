@@ -5,118 +5,137 @@ from .schemas import Delivery, DeliveryItem, Location, Driver, DeliveryStatus
 MOCK_DRIVERS = {
     "driver1": Driver(
         id="driver1",
-        name="John Doe",
-        phone="+1234567890",
-        email="john@example.com",
+        name="Rahul Kumar",
+        phone="+919876543210",
+        email="rahul@example.com",
         vehicleType="bike",
-        vehicleNumber="BIKE123",
+        vehicleNumber="TS09AB1234",
         rating=4.8,
         totalDeliveries=150
     ),
     "driver2": Driver(
         id="driver2",
-        name="Jane Smith",
-        phone="+0987654321",
-        email="jane@example.com",
+        name="Priya Sharma",
+        phone="+919876543211",
+        email="priya@example.com",
         vehicleType="scooter",
-        vehicleNumber="SCOOT456",
+        vehicleNumber="TS09CD5678",
         rating=4.9,
         totalDeliveries=200
     )
 }
 
-# Mock deliveries data
-MOCK_DELIVERIES = {
-    "driver1": [
-        Delivery(
-            id="delivery1",
-            orderId="order1",
-            customerName="Alice Johnson",
-            customerAddress="123 Main St, City",
-            customerPhone="+1112223333",
-            items=[
-                DeliveryItem(
-                    id="item1",
-                    name="Burger",
-                    quantity=2,
-                    price=12.99
-                ),
-                DeliveryItem(
-                    id="item2",
-                    name="Fries",
-                    quantity=1,
-                    price=4.99
-                )
-            ],
-            status=DeliveryStatus.IN_TRANSIT,
-            pickupLocation=Location(
-                latitude=40.7128,
-                longitude=-74.0060,
-                address="Restaurant A, 456 Food St"
-            ),
-            deliveryLocation=Location(
-                latitude=40.7148,
-                longitude=-74.0080,
-                address="123 Main St, City"
-            ),
-            estimatedTime=(datetime.now() + timedelta(minutes=15)).isoformat(),
-            notes="Please ring bell twice"
+# Create individual delivery objects
+delivery1 = Delivery(
+    id="delivery1",
+    orderId="order1",
+    customerName="Amit Patel",
+    customerAddress="Flat 302, Green Valley Apartments, Jubilee Hills, Hyderabad - 500033",
+    customerPhone="+919876543212",
+    items=[
+        DeliveryItem(
+            id="item1",
+            name="Hyderabadi Biryani",
+            quantity=2,
+            price=450.00
         ),
-        Delivery(
-            id="delivery2",
-            orderId="order2",
-            customerName="Bob Wilson",
-            customerAddress="789 Oak Ave, Town",
-            customerPhone="+4445556666",
-            items=[
-                DeliveryItem(
-                    id="item3",
-                    name="Pizza",
-                    quantity=1,
-                    price=18.99
-                )
-            ],
-            status=DeliveryStatus.PENDING,
-            pickupLocation=Location(
-                latitude=40.7138,
-                longitude=-74.0070,
-                address="Restaurant B, 789 Pizza St"
-            ),
-            deliveryLocation=Location(
-                latitude=40.7158,
-                longitude=-74.0090,
-                address="789 Oak Ave, Town"
-            ),
-            estimatedTime=(datetime.now() + timedelta(minutes=30)).isoformat()
+        DeliveryItem(
+            id="item2",
+            name="Mirchi Ka Salan",
+            quantity=1,
+            price=180.00
         )
     ],
-    "driver2": [
-        Delivery(
-            id="delivery3",
-            orderId="order3",
-            customerName="Charlie Brown",
-            customerAddress="321 Pine St, Village",
-            customerPhone="+7778889999",
-            items=[
-                DeliveryItem(
-                    id="item4",
-                    name="Sushi Combo",
-                    quantity=1,
-                    price=25.99
-                )
-            ],
-            status=DeliveryStatus.PICKED_UP,
-            pickupLocation=Location(
-                latitude=40.7120,
-                longitude=-74.0050,
-                address="Restaurant C, 123 Sushi St"
-            ),
-            deliveryLocation=Location(
-                latitude=40.7140,
-                longitude=-74.0070,
-                address="321 Pine St, Village"
-            ),
-            estimatedTime=(datetime.now() + timedelta(minutes=20)).isoformat()
+    status=DeliveryStatus.IN_TRANSIT,
+    pickupLocation=Location(
+        latitude=17.4332,
+        longitude=78.4070,
+        address="Paradise Restaurant, Secunderabad, Hyderabad - 500003"
+    ),
+    deliveryLocation=Location(
+        latitude=17.4330,
+        longitude=78.4072,
+        address="Flat 302, Green Valley Apartments, Jubilee Hills, Hyderabad - 500033"
+    ),
+    estimatedTime=(datetime.now() + timedelta(minutes=15)).isoformat(),
+    notes="Please call before delivery"
+)
+
+delivery2 = Delivery(
+    id="delivery2",
+    orderId="order2",
+    customerName="Sneha Reddy",
+    customerAddress="House No. 45, Banjara Hills, Hyderabad - 500034",
+    customerPhone="+919876543213",
+    items=[
+        DeliveryItem(
+            id="item3",
+            name="Chicken 65",
+            quantity=1,
+            price=320.00
+        ),
+        DeliveryItem(
+            id="item4",
+            name="Butter Naan",
+            quantity=4,
+            price=160.00
         )
-    ]
+    ],
+    status=DeliveryStatus.PENDING,
+    pickupLocation=Location(
+        latitude=17.4232,
+        longitude=78.4470,
+        address="Bawarchi Restaurant, RTC X Roads, Hyderabad - 500020"
+    ),
+    deliveryLocation=Location(
+        latitude=17.4230,
+        longitude=78.4472,
+        address="House No. 45, Banjara Hills, Hyderabad - 500034"
+    ),
+    estimatedTime=(datetime.now() + timedelta(minutes=30)).isoformat()
+)
+
+delivery3 = Delivery(
+    id="delivery3",
+    orderId="order3",
+    customerName="Vikram Singh",
+    customerAddress="Flat 501, Cyber Towers, HITEC City, Hyderabad - 500081",
+    customerPhone="+919876543214",
+    items=[
+        DeliveryItem(
+            id="item5",
+            name="Veg Thali",
+            quantity=1,
+            price=250.00
+        ),
+        DeliveryItem(
+            id="item6",
+            name="Gulab Jamun",
+            quantity=2,
+            price=80.00
+        )
+    ],
+    status=DeliveryStatus.PICKED_UP,
+    pickupLocation=Location(
+        latitude=17.4432,
+        longitude=78.3770,
+        address="Chutneys Restaurant, Madhapur, Hyderabad - 500081"
+    ),
+    deliveryLocation=Location(
+        latitude=17.4430,
+        longitude=78.3772,
+        address="Flat 501, Cyber Towers, HITEC City, Hyderabad - 500081"
+    ),
+    estimatedTime=(datetime.now() + timedelta(minutes=20)).isoformat()
+)
+
+# Mock deliveries data by driver
+MOCK_DELIVERIES = {
+    "driver1": [delivery1, delivery2],
+    "driver2": [delivery3]
+}
+
+# Mock deliveries data by ID for easy lookup
+MOCK_DELIVERIES_BY_ID = {
+    delivery.id: delivery for delivery in [delivery1, delivery2, delivery3]
 } 
