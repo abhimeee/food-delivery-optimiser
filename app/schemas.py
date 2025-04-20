@@ -10,6 +10,9 @@ class DeliveryStatus(str, Enum):
     DELIVERED = "delivered"
     CANCELLED = "cancelled"
 
+class DeliveryStatusUpdate(BaseModel):
+    status: DeliveryStatus
+
 class TemperatureSensitivity(str, Enum):
     NONE = "none"
     AMBIENT = "ambient"  # Room temperature items
