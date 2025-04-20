@@ -65,7 +65,7 @@ delivery2 = Delivery(
     id="delivery2",
     orderId="order2",
     customerName="Sneha Reddy",
-    customerAddress="House No. 45, Banjara Hills, Hyderabad - 500034",
+    customerAddress="Flat 405, Sri Sai Residency, Khajaguda, Hyderabad - 500008",
     customerPhone="+919876543213",
     items=[
         DeliveryItem(
@@ -88,9 +88,9 @@ delivery2 = Delivery(
         address="Bawarchi Restaurant, RTC X Roads, Hyderabad - 500020"
     ),
     deliveryLocation=Location(
-        latitude=17.4230,
-        longitude=78.4472,
-        address="House No. 45, Banjara Hills, Hyderabad - 500034"
+        latitude=17.4500,
+        longitude=78.3800,
+        address="Flat 405, Sri Sai Residency, Khajaguda, Hyderabad - 500008"
     ),
     estimatedTime=(datetime.now() + timedelta(minutes=30)).isoformat()
 )
