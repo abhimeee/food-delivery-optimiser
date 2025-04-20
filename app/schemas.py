@@ -10,6 +10,13 @@ class DeliveryStatus(str, Enum):
     DELIVERED = "delivered"
     CANCELLED = "cancelled"
 
+class TemperatureSensitivity(str, Enum):
+    NONE = "none"
+    AMBIENT = "ambient"  # Room temperature items
+    CHILLED = "chilled"  # Items that need to be kept cool (4-8°C)
+    FROZEN = "frozen"    # Items that need to be kept frozen (-18°C)
+    HOT = "hot"          # Items that need to be kept hot (>60°C)
+
 class Location(BaseModel):
     latitude: float
     longitude: float
@@ -20,6 +27,15 @@ class DeliveryItem(BaseModel):
     name: str
     quantity: int
     price: float
+    temperature_sensitivity: TemperatureSensitivity = TemperatureSensitivity.NONE
+    max_safe_time_minutes: Optional[int] = None
+    special_handling_instructions: Optional[str] = None
+
+class DeliveryWindow(BaseModel):
+    start_time: datetime
+    end_time: datetime
+    priority: int = 1  # 1-5, 5 being highest priority
+    late_penalty: Optional[float] = None  # Penalty amount for late delivery
 
 class Delivery(BaseModel):
     id: str
@@ -31,8 +47,8 @@ class Delivery(BaseModel):
     status: DeliveryStatus
     pickupLocation: Location
     deliveryLocation: Location
-    estimatedTime: str
-    actualTime: Optional[str] = None
+    delivery_window: DeliveryWindow
+    actualTime: Optional[datetime] = None
     notes: Optional[str] = None
 
 class Driver(BaseModel):
@@ -53,7 +69,7 @@ class Order(BaseModel):
     customer_lat: float
     customer_long: float
     product_type: str
-    delivery_priority: str  # make it enum maybe later
+    delivery_priority: str
     delivery_deadline: datetime
 
 class OrderRequest(BaseModel):
