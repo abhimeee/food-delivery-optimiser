@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from app.schemas import OrderRequest, RouteResponse, Delivery, Driver, DeliveryStatusUpdate, DeliveryStatus
 from app.optimizer import optimize_route
 from .mock_data import MOCK_DELIVERIES, MOCK_DELIVERIES_BY_ID, MOCK_DRIVERS
+from datetime import datetime
 
 app = FastAPI()
 
@@ -18,7 +19,25 @@ async def get_active_deliveries(driver_id: str):
     if driver_id not in MOCK_DELIVERIES:
         raise HTTPException(status_code=404, detail="Driver not found")
     
-    return MOCK_DELIVERIES[driver_id]
+    # Get driver's current location (for simplicity, using pickup location of first delivery)
+    # In a real system, this would come from a GPS tracking system
+    current_location = (
+        MOCK_DELIVERIES[driver_id][0].pickupLocation.latitude,
+        MOCK_DELIVERIES[driver_id][0].pickupLocation.longitude
+    )
+    
+    current_time = datetime.now()
+    
+    optimized_sequence = optimize_route(
+        MOCK_DELIVERIES[driver_id],
+        current_location,
+        current_time
+    )
+    
+    delivery_map = {delivery.id: delivery for delivery in MOCK_DELIVERIES[driver_id]}
+    
+    # Return deliveries in optimized order
+    return [delivery_map[delivery_id] for delivery_id in optimized_sequence]
 
 @app.get("/deliveries/{delivery_id}", response_model=Delivery)
 async def get_delivery_details(delivery_id: str):
